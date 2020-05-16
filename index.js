@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ extended: true }));
 app.use(cors());
 
-var userRoute = require('./users/users.route');
+var userRoute = require('./module/users/users.route');
 
 app.use('/user',userRoute);
 
