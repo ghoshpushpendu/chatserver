@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Users = require('./users.model');
-import { firebaseadmin } from './../firebase/firebase.admin'
+const  firebaseadmin  = require('./../firebase/firebase.admin');
 
 router.post('/create',function(req,res){
     req.body.phonenumber = '91'+req.body.phonenumber;
