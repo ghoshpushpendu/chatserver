@@ -21,6 +21,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ extended: true }));
 app.use(cors());
 
+var userRoute = require('./users/users.route');
+
+app.use('/user',userRoute);
+
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
 });
