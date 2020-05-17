@@ -43,7 +43,7 @@ io.use(function (socket, next) {
             socketId: socketId
         }
 
-        helper.updateuserstatus(userId, socket.id,'online' (error, response) => {
+        helper.updateuserstatus(userId, socket.id,'online', (error, response) => {
         });
 
         next();
@@ -53,7 +53,7 @@ io.use(function (socket, next) {
 io.on('connection', (socket) => {
   console.log('a user connected');
   socket.on('disconnect', (data) => {
-    helper.updateuserstatusonsocket(socket.id,'offline' (error, response) => {
+    helper.updateuserstatusonsocket(socket.id,'offline', (error, response) => {
     });
   });
 });
