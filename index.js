@@ -16,10 +16,15 @@ mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 var db = mongoose.connection;
 
 //Bind connection to error event (to get notification of connection errors)
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+mongoose.connection.on('connected', () => {
+    console.log("Database connection established.")
+});
 
-mongoose.on('connected', () => {
-    console.log('Mongo Connected.','Created database "chat"');
+//on error
+mongoose.connection.on('error', (err) => {
+    if (err) {
+        console.log("Error: Connecting to database",err)
+    }
 });
 
 app.use(bodyParser.urlencoded({ extended: true }));
