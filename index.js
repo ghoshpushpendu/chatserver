@@ -35,7 +35,7 @@ var userRoute = require('./module/users/users.route');
 var fileRoute = require('./module/image/image.route');
 
 app.use('/user', userRoute);
-app.user('/fie', fileRoute);
+app.use('/file', fileRoute);
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
