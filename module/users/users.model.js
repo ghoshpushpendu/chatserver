@@ -17,6 +17,9 @@ var Users = new Schema({
     socketid:{
         type:String
     },
+    status:{
+      type:String // value - online , offline
+    },
     createddate:{
         type:String,
         default: new Date()
