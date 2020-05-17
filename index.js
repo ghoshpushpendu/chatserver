@@ -17,14 +17,14 @@ var db = mongoose.connection;
 
 //Bind connection to error event (to get notification of connection errors)
 mongoose.connection.on('connected', () => {
-    console.log("Database connection established.")
+  console.log("Database connection established.")
 });
 
 //on error
 mongoose.connection.on('error', (err) => {
-    if (err) {
-        console.log("Error: Connecting to database",err)
-    }
+  if (err) {
+    console.log("Error: Connecting to database", err)
+  }
 });
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -32,33 +32,35 @@ app.use(bodyParser.json({ extended: true }));
 app.use(cors());
 
 var userRoute = require('./module/users/users.route');
+var fileRoute = require('./module/image/image.route');
 
-app.use('/user',userRoute);
+app.use('/user', userRoute);
+app.user('/fie', fileRoute);
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
 });
 
 io.use(function (socket, next) {
-    if (socket.request._query['userId'] != 'null' || socket.request._query['userId'] != undefined) {
-        let userID = socket.request._query['userId'];
-        let socketId = socket.id;
-        const data = {
-            id: userID,
-            socketId: socketId
-        }
-
-        helper.updateuserstatus(userId, socket.id,'online', (error, response) => {
-        });
-
-        next();
+  if (socket.request._query['userId'] != 'null' || socket.request._query['userId'] != undefined) {
+    let userID = socket.request._query['userId'];
+    let socketId = socket.id;
+    const data = {
+      id: userID,
+      socketId: socketId
     }
+
+    helper.updateuserstatus(userId, socket.id, 'online', (error, response) => {
+    });
+
+    next();
+  }
 });
 
 io.on('connection', (socket) => {
   console.log('a user connected');
   socket.on('disconnect', (data) => {
-    helper.updateuserstatusonsocket(socket.id,'offline', (error, response) => {
+    helper.updateuserstatusonsocket(socket.id, 'offline', (error, response) => {
     });
   });
 });
